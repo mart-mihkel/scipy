@@ -356,7 +356,7 @@ class IterativeSubproblem(BaseQuadraticSubproblem):
 
                     # Compute Cholesky factorization
                     H = self.hess + lambda_new*np.eye(n)
-                    c, info = self.cholesky(H, lower=False,
+                    U, info = self.cholesky(H, lower=False,
                                             overwrite_a=False,
                                             clean=True)
 
