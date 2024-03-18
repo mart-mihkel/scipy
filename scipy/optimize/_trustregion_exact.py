@@ -356,7 +356,7 @@ class IterativeSubproblem(BaseQuadraticSubproblem):
 
                     # Compute Cholesky factorization
                     H = self.hess + lambda_new*np.eye(n)
-                    U, info = self.cholesky(H, lower=False,
+                    c, info = self.cholesky(H, lower=False,
                                             overwrite_a=False,
                                             clean=True)
 
@@ -366,6 +366,7 @@ class IterativeSubproblem(BaseQuadraticSubproblem):
                         # Update damping factor
                         lambda_current = lambda_new
                         already_factorized = True
+                        U = c
                     else:  # Unsuccessful factorization
                         # Update uncertanty bounds
                         lambda_lb = max(lambda_lb, lambda_new)
