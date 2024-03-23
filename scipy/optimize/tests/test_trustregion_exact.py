@@ -203,6 +203,22 @@ class TestIterativeSubproblem:
 
         assert_array_almost_equal(-s, subprob.lambda_current)
 
+    def test_for_edge_case(self):
+        g = [20, -10]
+        H = [[15, 0],
+             [0, 5]]
+
+        subprob = IterativeSubproblem(x=np.zeros(2),
+                                      fun=lambda _: 0,
+                                      jac=lambda _: np.array(g),
+                                      hess=lambda _: np.array(H),
+                                      k_easy=1e-6,
+                                      k_hard=1e-9)
+        p, hits_boundary = subprob.solve(1.0)
+
+        assert_array_almost_equal(p, [-0.77472957,  0.63229272])
+        assert_equal(hits_boundary, True)
+
     def test_for_interior_convergence(self):
 
         H = [[1.812159, 0.82687265, 0.21838879, -0.52487006, 0.25436988],
